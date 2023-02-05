@@ -2,7 +2,7 @@
   *  `Store` holds the state which is global state
   *  `Views`, dispatches actions (event handlers)
   *  `Actions` triggers reducers, reducers update State which state update UI
-
+ * https://www.youtube.com/watch?v=iBUJVy8phqw
 #### Redux Toolkit 
 * Create store.js
 ```
