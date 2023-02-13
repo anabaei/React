@@ -16,7 +16,7 @@ const DropdownCombobox = () => {
   useEffect(() => {
     async function fetchData() {
         await getAPI();
-       
+ 
     }
 
     fetchData();
