@@ -4,6 +4,9 @@ const Header = ({
     options,
     setSelected,
     selected,
+    setSortType,
+    sortType, 
+    types
 }) => {
 
   return (
@@ -13,6 +16,11 @@ const Header = ({
         options={options}
         selected={selected}
         setSelected={setSelected}
+      />
+       <Dropdown2
+        options={types}
+        selected={sortType}
+        setSelected={setSortType}
       />
     </div>
   );
