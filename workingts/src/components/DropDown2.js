@@ -2,7 +2,11 @@ import react, { useState } from "react";
 
 const DropDown2 = ({options, 
     selected, 
-    setSelected}) => {
+    setSelected,
+    setSortType,
+    sortType, 
+    types
+  }) => {
 
       const eventHandler = (e) => {
         setSelected(e.target.value)
@@ -10,13 +14,14 @@ const DropDown2 = ({options,
 
   return (
     <select value={selected} onChange={eventHandler}>
-      {options.map((option) => (
-        <option key={option.id} 
-        value={option.id}>
-            {option.name}
+      {options.map((option, index) => (
+        <option key={index} 
+        value={index}>
+            {index}
         </option>
       ))}
     </select>
+    
   );
 };
 
