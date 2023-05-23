@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "axios": "^1.4.0"
+    "@emotion/react": "^11.11.0",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "theme-ui": "^0.15.7"
   }
 }
