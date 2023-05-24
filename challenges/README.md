@@ -62,6 +62,19 @@ return (
 await axios.get(apiUrl);
 await axios.post(apiUrl, payload, { header });
 ```
+##### Drag and Drop
+
+* first add `onDragOver` on items and the zone you want to drop to call anonymouse function prevent event default 
+*  `dragable` built in tag to identify which object is dragable
+*  `onDragStart` built in function to trigger a function using anonymouse function 
+*  `onDrop` built in tag, to handle when drop over
+*  On each event, we have event handlers to set states. State are array of items. to accumulate or remove 
+*  On return is a map go over an array of items and display them, below can usefull when wants to delete an item
+```javascript
+ event.dataTransfer.setData('text/plain', index);
+index = event.dataTransfer.getData('text/plain');
+```
+
 
 ### Tips
 
@@ -81,12 +94,51 @@ const copiedArray = [...originalArray];
 const deepCopiedArray = JSON.parse(JSON.stringify(array));
 ```
 * https://api.github.com/
+* https://api.github.com/search/issues?q={query}
+  {&page,per_page,sort,order}
+* https://api.github.com/users/openai/repos
+* https://developers.thecatapi.com/view-account/ylX4blBYT9FaoVd6OhvR?report=FJkYOq9tW
 
 #### 
 ```javascript
 export default function search() {
 // above is wrong, correct it 
 export default function Search() {
+```
+* Accumulate states, we can update using setState as below
+```javascript
+setDropZoneItems((prevItems) => [...prevItems, draggedItem]);
+```
+* Map either put return with { } or use ().
+* below print nothing, need uncomment `return` or remove`{}` and replace with `()`
+```javascript
+  {dropedItems && dropedItems.map((item) => 
+  //return
+             { // (
+               <div key={item}>
+                    
+                     {item}    
+                    
+                </div>
+             } // )
+            
+        )}
+```
+##### Cleanup functions
+* It performs when the component unmounts or when the dependencies changed
+* It is useful for canceling subscriptions, clearing timers, or releasing any resources.
+* return a function inside useEffect is cleanup function. One common clean up is return cancel axios to cancel request
+```javascript
+// on top
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+  .
+  .
+  .
+    return () => {
+        // Cancel the ongoing request
+        source.cancel("Request canceled by cleanup");
+    };
 ```
 
 
