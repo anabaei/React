@@ -6,6 +6,7 @@
     "dotenv": "^16.0.3",
     "fs": "^0.0.1-security",
     "os-browserify": "^0.3.0",
+    "react-router-dom": "^6.11.2",
     "theme-ui": "^0.15.7"
   }
 }

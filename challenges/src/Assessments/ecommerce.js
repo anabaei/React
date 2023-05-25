@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Box, Image } from "theme-ui";
 import axios from "axios";
 
+
 export default function Ecommerce() {
   const [cats, setCats] = useState(null);
+  const navigate = useNavigate();
 
   const api =
     "https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=beng";
@@ -22,6 +25,7 @@ export default function Ecommerce() {
   
   const handleImageClick = (image) => {
     // Handle image click and get more details
+    navigate(`/details?id=${image.id}`, { state: { name:'Xyz' }});
     console.log("Clicked image:", image);
   };
 
@@ -36,8 +40,8 @@ export default function Ecommerce() {
       sx={{
         display: "inline-block",
         cursor: "pointer",
-        m: 2,
-        padding: "2%",
+        margin: '2em',  //em is responsive % based on the parent font size, rem is same but depend on root font size 
+        padding: "2em",
         border: "1px solid gray",
         width: ["100%", "25%"], // Adjust the width based on screen size
         "&:hover": {
@@ -49,7 +53,7 @@ export default function Ecommerce() {
       
       >
         {item.id}
-        <Image src={item.url} />
+        <Image  src={item.url} style={{ width: "30rem", height: "15em", maxWidth: "100%" }} />
       </Box>
       
       )}
