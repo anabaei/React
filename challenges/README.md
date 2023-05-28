@@ -141,6 +141,19 @@ setDropZoneItems((prevItems) => [...prevItems, draggedItem]);
     };
 ```
 
+#### State Value
+* If you update the satate value directly and try to use setState with that not working! React can't recognize any change on object since it checks shallow copy. So to solve it you always need to make a copy shallow of the state, update it and then use it to set 
+```javascript
+const [anystate, setAnystate] = useState([])
+
+anystate.push(1)
+setAnyState(anystate) // not changing 
+
+newvar = [...anystate]
+newwar.push(1)
+setAnyState(newvar) // works
+```
+
 
 
 1- Todo App: Implement a simple todo application where users can add, delete, and mark items as complete. This exercise tests your understanding of React component structure, state management, and event handling.
