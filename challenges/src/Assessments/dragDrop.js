@@ -67,7 +67,7 @@ export default function DragAndDrop() {
       >
         Drop here
         {dropedItems &&
-          dropedItems.map((item, index) => <div key={index}>{item}</div>)}
+        dropedItems.map((item, index) => <div key={index}>{item}</div>)}
       </div>
     </div>
   );

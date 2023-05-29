@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+input {
+  padding: 3rem
+}
+
+.forms  { 
+  border: 1 px red; 
+  margin: 3rem
+}
