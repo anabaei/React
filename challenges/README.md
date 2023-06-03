@@ -1,3 +1,6 @@
+
+
+
 # Challenges
 
 ### Todo
@@ -77,6 +80,24 @@ index = event.dataTransfer.getData('text/plain');
 
 
 ### Tips
+
+
+#### Variables
+
+* Variable define in global scope become property of global objects
+  * If browser, the global object is window (window.myvar)
+  * If node, global object is the module name  (mdodule.myvar)
+* `const` , `let` are block scope, `var` is function scope 
+
+#### This
+* Manualy set this to a function
+  * if a function uses this inside, you can pass an object to it to be its `this`
+    * `myfunction.call(person)` , person is an object, 
+  * If you don't want to call object right away, bind it later call and this is there
+    * `const newfunc = myfunction.bind(person)`
+  * If you want another object, you can use  `apply` instead of call
+
+
 
 ##### Spread Operator
 
@@ -247,7 +268,9 @@ setAnyState(newvar) // works
 * Search and display Giphy images (through Giphy api) in responsive format
 * Build Connect Four
 * Implement Nested Checkboxes (parent is checked, children are checked and vice versa. Must use actual checkbox input)
-
+* A search bar where users can enter a search query.
+Display a list of books that match the query, showing the title, author, and cover image. You may use a static array of book objects for this purpose.
+Implement a basic pagination system, allowing users to navigate between different pages of search results (assume 5 books per page)
 
 ### Only JS
 
