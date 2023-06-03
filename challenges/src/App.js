@@ -4,6 +4,7 @@ import Search from './Assessments/search'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ImageDetails from './Assessments/imageDetails';
+import Starrating from './Assessments/starrating';
 import {useState} from 'react'
 import { SessionProvider } from './Assessments/sessionContext';
 import Quize from './Assessments/quize';
@@ -24,7 +25,7 @@ function App() {
           }
         />
      
-        <Route path="/" element={<Quize />} />
+        <Route path="/" element={<Starrating />} />
         <Route path="/details" element={<ImageDetails />} />
         <Route path="/search" element={<Search />} />
       </Routes>
