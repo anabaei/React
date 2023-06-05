@@ -7,27 +7,22 @@ export default function InfiniteScrollComponent() {
   const [data, setData] = useState([]); // Array to store the fetched data
   const [page, setPage] = useState(1); // Current page number
   const [hasMore, setHasMore] = useState(true); // Flag to indicate if there is more data to load
+  let prevId=0
   // Function to fetch more data
   const fetchMoreData = async () => {
     // Simulate API call or fetch data from an external source
     // In this example, we  use a setTimeout to simulate an async operation
     let prevPage = page;
-    console.log("page=== ", prevPage);
+    console.log("page=== ", prevPage, data.length);
     const response = await axios.get(
-      `https://reqres.in/api/users?page=${prevPage}`
+      `https://api.github.com/search/commits?q=a&page=${prevPage}&per_page=10`
     );
-    console.log(response.data);
-    setData(response.data.data);
-    const maxPages = response.data.total;
+
+    setData((prevData) => [...prevData, ...response.data.items]);
+    const maxPages = response.data.total_count;
     setPage((prevPage += 1));
-    console.log("maxPages", maxPages, hasMore);
-    if (page === maxPages) {
+    if (prevPage === maxPages) {
       setHasMore(false);
-    }
-    try {
-      setData((prevData) => [...prevData, ...response.data.data]);
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -35,6 +30,25 @@ export default function InfiniteScrollComponent() {
   useEffect(() => {
     fetchMoreData();
   }, []);
+
+  const displayList = () =>{
+   return(
+       data.map((item, index) => {
+           if(item.author && prevId !==item.author.id){
+            prevId = item.author.id
+             return (
+                <Box>
+
+                 <Image src={item.author.avatar_url} alt={item.author.id} />
+                 <div>{item.author.login}</div>
+                 
+               </Box>
+             )
+           }
+       })
+   )
+}
+
 
   return (
     <InfiniteScroll
@@ -46,23 +60,16 @@ export default function InfiniteScrollComponent() {
     >
       {/* Render your data */}
       <Grid
-        gap={3}
+        gap={5}
         columns={[1, 2, 3]}
         sx={{
           //   alignContent: "center",
           textAlign: "center",
         }}
       >
-        {data.map((item, index) => (
-          <Box columns={[1]} key={index} sx={{ border: "1px solid grey" }}>
-            <Box>
-              <Image src={item.avatar} alt={item.id} />
-            </Box>
-            <div>{item.first_name}</div>
-            <div>{item.email}</div>
-          </Box>
-        ))}
-      </Grid>
+
+     {displayList()}
+        </Grid>
     </InfiniteScroll>
   );
 }
