@@ -3,7 +3,7 @@
 import Search from './Assessments/search'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import InfiniteScrollComponent from './Assessments/infinit';
+import Trie from './Assessments/trie';
 import {useState} from 'react'
 
 
@@ -22,7 +22,7 @@ function App() {
             loggedIn ? <div>Logged In</div> : <div>It is logged out, need to sign in</div>
           }
         />
-        <Route path="/" element={<InfiniteScrollComponent />} />
+        <Route path="/" element={<Trie />} />
         <Route path="/search" element={<Search />} />
       </Routes>
     </Router>  
