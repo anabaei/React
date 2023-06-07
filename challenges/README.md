@@ -110,6 +110,8 @@ index = event.dataTransfer.getData('text/plain');
 
 ##### Shallow vs deep Copy
 
+-  Modifying the copied object affect the original object. To create independent copies of objects, you need to use appropriate techniques like
+   - spread operators for shallow copies `[...arr]` , `{...obj}` or deep copies like `Object.assign()`, `JSON.parse(JSON.stringify())`
 - Create a new object, the new object or array will have its own references to the same values as the original. But the nested values are unchanged, if you want all nesged values cahnge then use deep copy
 
 ```javascript
