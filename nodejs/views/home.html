@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Phone Directory</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <main>
+    <h1 class="margin20 textCenter fs20">Phone Directory</h1>
+    <div class="textCenter">
+      <div class="textCenter inputContent">
+        <div class="txtLeft marginTB40 fb">
+          <form class="txtLeft" id="addContactForm">
+            <input type="text" id="name" value="" aria-label="Contact Name" placeholder="Contact Name"/>
+            <input type="number" maxlength="10" id="mobile" value="" aria-label="Mobile Number" placeholder="Mobile Number"/>
+            <input type="email" id="email" value="" aria-label="Email" placeholder="Email"/>
+            <input type="submit" class="btn" id="submit" value="Add Vendor"/>
+            <div id="error" class="dn error padT10 textCenter">Invalid Input!</div>
+          </form>
+        </div>
+      </div>
+      <form class="marginT40" id="searchForm">
+        <label for="search">Search contact by Mobile No:</label>
+        <input type="text" id="search" value=""/>
+        <input type="submit" class="btn" id="searchMonile" value="Search"/>
+      </form>
+      <div class="marginT40 padL10 tab cursorPtr" id="contactsSummary">Contacts Summary</div>
+      <div id="contactSummary" class="contactSummary">
+        <table aria-labelledby="contactsSummary" id="summaryTable">
+          <thead>
+            <tr>
+              <th><button id="nameColumn">Name</button></th>
+              <th>Mobile</th> 
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Admin</td>
+              <td>9999999999</td> 
+              <td>admin@xyzcompany.com</td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="noResult" class="noResult dn">No Results Found</div>
+      </div>
+    </div>
+  </main>
+  <script>
+    window.contactsList = [{
+      name: 'Admin',
+      mobile: '9999999999',
+      email: 'admin@xyzcompany.com'
+    }];
+
+    document.getElementById('addContactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const mobile = document.getElementById('mobile').value;
+      const email = document.getElementById('email').value;
+
+      if (name && mobile && email) {
+        const newContact = { name, mobile, email };
+        window.contactsList.push(newContact);
+        renderContacts();
+        resetForm();
+      } else {
+        showErrorMessage();
+      }
+    });
+
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        
+      event.preventDefault();
+      const searchValue = document.getElementById('search').value;
+      console.log("searchValue= ", searchValue)
+      const searchResults = searchContacts(searchValue);
+      renderSearchResults(searchResults);
+    });
+
+    function renderContacts() {
+      const summaryTable = document.getElementById('summaryTable');
+      const tbody = summaryTable.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+
+      window.contactsList.forEach(function(contact) {
+        const row = document.createElement('tr');
+        const nameCell = document.createElement('td');
+        const mobileCell = document.createElement('td');
+        const emailCell = document.createElement('td');
+
+        nameCell.textContent = contact.name;
+        mobileCell.textContent = contact.mobile;
+        emailCell.textContent = contact.email;
+
+        row.appendChild(nameCell);
+        row.appendChild(mobileCell);
+        row.appendChild(emailCell);
+
+        tbody.appendChild(row);
+      });
+
+      const noResult = document.getElementById('noResult');
+      noResult.classList.add('dn');
+    }
+
+    function searchContacts(searchValue) {
+      const searchResults = window.contactsList.filter(function(contact) {
+        const result = contact.mobile.includes(searchValue);
+        console.log("windowt= ", window.contactsList)
+        return(result) 
+      });
+
+      return searchResults;
+    }
+
+    function renderSearchResults(searchResults) {
+      const summaryTable = document.getElementById('summaryTable');
+      console.log(">>>", summaryTable)
+      const tbody = summaryTable.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+
+      if (searchResults.length > 0) {
+        searchResults.forEach(function(contact) {
+          const row = document.createElement('tr');
+          const nameCell = document.createElement('td');
+          const mobileCell = document.createElement('td');
+          const emailCell = document.createElement('td');
+
+          nameCell.textContent = contact.name;
+          mobileCell.textContent = contact.mobile;
+          emailCell.textContent = contact.email;
+
+          row.appendChild(emailCell);
+          row.appendChild(nameCell);
+          row.appendChild(mobileCell);
+
+          tbody.appendChild(row);
+        });
+
+        const noResult = document.getElementById('noResult');
+        noResult.classList.add('dn');
+      } else {
+        const noResult = document.getElementById('noResult');
+        noResult.classList.remove('dn');
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('name').value = '';
+      document.getElementById('mobile').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('error').classList.add('dn');
+    }
+
+    function showErrorMessage() {
+      document.getElementById('error').classList.remove('dn');
+    }
+
+    // Initial rendering of contacts
+    renderContacts();
+  </script>
+</body>
+</html>
+
+

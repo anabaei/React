@@ -170,7 +170,7 @@ setDropZoneItems((prevItems) => [...prevItems, draggedItem]);
 ```
 
 #### State Value
-* If you update the satate value directly and try to use setState with that not working! React can't recognize any change on object since it checks shallow copy. So to solve it you always need to make a copy shallow of the state, update it and then use it to set 
+* If you update the state value directly and try to use setState with that not working! React can't recognize any change on object since it checks shallow copy. So to solve it you always need to make a copy shallow of the state, update it and then use it to set 
 ```javascript
 const [anystate, setAnystate] = useState([])
 
@@ -284,4 +284,48 @@ Implement a basic pagination system, allowing users to navigate between differen
 * two3pointer
 * fastSlow pointer
 * slidingShow
-* 
+
+
+#### Document vs Window
+* Window represent javascript object in each browser or tab, variables and functions with no scope are global
+```javascript
+window.alert() is same as alert()
+// navigation or new url
+window.open()
+
+setTimeout()
+setInterval()
+```
+* Window object provides event listeners for browser events, `window.onload` `window.onresize` 
+* `Document` represent HTML object. It is a property of window object. 
+* Dom Manipulation like `document.getElementById()`, `document.createElement()` 
+* Dom selection: like `document.querySelector()` 
+* Styling: document object allow to styl like `document.body.style `
+* Event Handling: DOM provides event listeners such as `document.onclick` 
+* Form Handling: allow to interact with forms, like form and submit. 
+
+
+### Event Listener
+
+* `target element` One you want to attach event listener to it using `document.getElementById() or document.querySelector().`
+* `event type`  This is a string that specifies the type of event you want to listen for, such as `click`, `keydown`, `submit`
+* `event handler` this can handle the event 
+```javascript
+const myButton = document.getElementById('myButton');
+
+function handleClick(event) {
+  console.log('Button clicked!');
+  // Additional code here...
+}
+
+myButton.addEventListener('click', handleClick);
+```
+* This is toggle use 
+```javascript
+const listItems = document.querySelectorAll('ul li');
+    listItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('highlight');
+      });
+```
+* In React the job of `Babel` is translate JSX to JS which is javascript format. 

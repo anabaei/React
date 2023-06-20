@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Phone Directory</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <main>
+    <h1> Directory of Phones</h1>
+    <form id='phonebook'>
+        <input id="name" />
+        <input id="mobile" />
+        <input id="email" />
+        <button type="submit"> enter </button>
+    </form>
+
+
+    <div id="contactSummary" class="contactSummary">
+        <table aria-labelledby="contactsSummary" id="summaryTable">
+          <thead>
+            <tr>
+              <th><button id="nameColumn">Name</button></th>
+              <th>Mobile</th> 
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Admin</td>
+              <td>111111111</td> 
+              <td>admin@xyzcompany.com</td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="noResult" class="noResult dn">No Results Found</div>
+      </div>
+    </div>
+
+  </main>
+  </body>
+</html>
+<script>
+    window.contactList = [
+        {
+            name: 'one name',
+            mobile: '99999999',
+            email: 'example@gmail.com'
+        }
+    ]
+    function renderPage() {
+        let summaryTable = document.getElementById('summaryTable')
+    const tbody = summaryTable.getElementsByTagName('tbody')[0]
+    console.log("--", tbody)
+    
+    window.contactList.forEach(item => {
+        const row  = document.createElement('tr')
+        const nameCell  = document.createElement('td')
+        const emailCell  = document.createElement('td')
+        const phoneCell  = document.createElement('td')
+        
+        nameCell.textContent = item.name;
+        phoneCell.textContent = item.mobile;
+        emailCell.textContent = item.email;
+        
+        row.appendChild(emailCell)
+        row.appendChild(phoneCell)
+        row.appendChild(nameCell)
+        tbody.appendChild(row)
+    });
+
+    document.body.appendChild(tbody)     
+    }
+   
+   document.getElementById('phonebook').
+
+
+
+
+    renderPage()
+</script>
