@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Query Selector Example</title>
+  <style>
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <h1>Query Selector Example</h1>
+  <div id="container">
+    <p class="highlight">Hello, world!</p>
+    <p>This is a paragraph.</p>
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li class="highlight">Item 3</li>
+    </ul>
+  </div>
+
+  <script>
+    // Select the first <p> element with class "highlight"
+    const highlighted = document.querySelector('p.highlight');
+    highlighted.textContent = 'Highlighted paragraph';
+
+    // Add a click event listener to the <li> elements in the <ul>
+    const listItems = document.querySelectorAll('ul li');
+    listItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('highlight');
+      });
+    });
+  </script>
+</body>
+</html>

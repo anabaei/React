@@ -4,6 +4,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
+    "esm": "^3.2.25",
     "fs": "^0.0.1-security",
     "os-browserify": "^0.3.0",
     "react-router-dom": "^6.11.2",
