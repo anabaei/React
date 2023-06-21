@@ -9,7 +9,7 @@
     <h1> Directory of Phones</h1>
     <form id='phonebook'>
         <input id="name" />
-        <input id="mobile" />
+        <input type="onclick" id="mobile" />
         <input id="email" />
         <button type="submit"> enter </button>
     </form>
@@ -71,9 +71,16 @@
     document.body.appendChild(tbody)     
     }
    
-   document.getElementById('phonebook').
+   document.getElementById('phonebook').addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const {name, email, mobile} = e.target
+    console.log("sss", name.value, email.value, mobile.value)
+   })
 
-
+   document.getElementById('mobile').addEventListener('onclick', (e)=>{
+    e.preventDefault()
+    console.log("rrr", e)
+   })
 
 
     renderPage()
