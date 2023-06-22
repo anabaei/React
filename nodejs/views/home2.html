@@ -2,26 +2,28 @@
 <html lang="en-US">
 <head>
   <title>Phone Directory</title>
-  <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/styles.css" rel="stylesheet" type="text/css"/>
+
 </head>
 <body>
   <main>
     <h1> Directory of Phones</h1>
     <form id='phonebook'>
-        <input id="name" />
-        <input type="onclick" id="mobile" />
-        <input id="email" />
+        <input type="string" id="name" />
+        <input type="number" id="mobile" />
+        <input type="email" id="email" />
         <button type="submit"> enter </button>
+        <div id="error" class="dn error padT10 textCenter">Invalid Input!</div>
     </form>
 
-
+    <button type="submit" id="reset"> reset </button>
     <div id="contactSummary" class="contactSummary">
         <table aria-labelledby="contactsSummary" id="summaryTable">
           <thead>
             <tr>
-              <th><button id="nameColumn">Name</button></th>
-              <th>Mobile</th> 
-              <th>Email</th>
+              <th><button id="nameRow" class="sort" name="name" id="nameColumn">Name</button></th>
+              <th><button class="sort" name="mobile">Mobile</button></th> 
+              <th><button class="sort" name="email">Email</button></th>
             </tr>
           </thead>
           <tbody>
@@ -47,12 +49,36 @@
             email: 'example@gmail.com'
         }
     ]
-    function renderPage() {
-        let summaryTable = document.getElementById('summaryTable')
-    const tbody = summaryTable.getElementsByTagName('tbody')[0]
-    console.log("--", tbody)
     
+    function resetForm() {
+        window.contactList = []
+        document.getElementById('error').textContent = ''
+        console.log('content= ', document.getElementById('error').textContent)
+        document.getElementById('error').classList.add('dn');
+
+    }
+
+    function restTable(){
+        const tbody = document.querySelector('#summaryTable tbody');
+        tbody.innerHTML = `  <tr>
+              <td>Admin</td>
+              <td>111111111</td> 
+              <td>admin@xyzcompany.com</td>
+            </tr>`;
+    }
+
+    function showError(messages) {
+       document.getElementById('error').classList.remove('dn');
+       const errorCell =  document.getElementById('error')
+       errorCell.textContent  = messages.join(' ')
+    }
+    
+    function renderPage(param= 'render') {
+     
+        let summaryTable = document.getElementById('summaryTable')
+        const tbody = summaryTable.getElementsByTagName('tbody')[0]
     window.contactList.forEach(item => {
+        // if(item.name !== 'one name' || param === 'init'){
         const row  = document.createElement('tr')
         const nameCell  = document.createElement('td')
         const emailCell  = document.createElement('td')
@@ -66,22 +92,95 @@
         row.appendChild(phoneCell)
         row.appendChild(nameCell)
         tbody.appendChild(row)
+        // }
     });
+   
 
-    document.body.appendChild(tbody)     
+       
     }
    
    document.getElementById('phonebook').addEventListener('submit', (e)=>{
     e.preventDefault()
-    const {name, email, mobile} = e.target
-    console.log("sss", name.value, email.value, mobile.value)
+    const {value: name} = e.target.name 
+    const {value: mobile} = e.target.mobile 
+    const {value: email} = e.target.email
+    const input = {name, email, mobile}
+    console.log("input= ", input)
+    resetForm()
+    if (name && mobile && email) {
+        const newContact = {name, email, mobile}
+        window.contactList.push(newContact)
+        renderPage()
+        
+    }
+    else{
+        const errors = []
+        switch (true) {
+            case !input.name:
+                errors.push("no name")
+            case !input.email:
+                errors.push("no email")
+            case !input.mobile:
+                errors.push("no mobile")
+            default:
+                break;
+        }
+        if(errors.length > 0){
+            console.log(errors)
+            showError(errors)
+        }
+    }
    })
 
-   document.getElementById('mobile').addEventListener('onclick', (e)=>{
-    e.preventDefault()
-    console.log("rrr", e)
-   })
+//    document.getElementById('mobile').addEventListener('keydown', (e)=>{
+//     e.preventDefault()
+//     console.log("rrr", e)
+//    })
+    document.getElementById('reset').addEventListener('click', ()=>{
+        console.log("reset")
+        restTable()
+       
+    })
+
+    
+
+    // const elements = document.getElementsByClassName('sort');
+    // for (let i of elements) {
+    // i.addEventListener('click', (e) => {
+    //     const { name } = e.target;
+    //     // Sort the contactList based on the clicked column name
+    //     window.contactList.sort((a, b) => a[name].localeCompare(b[name]));
+    //     console.log(window.contactList);
+    //     renderPage();
+    // });
+    // }
+    let isNameSortedAsc = false;
+    document.getElementById('nameRow').addEventListener('click', (e) => {
+        e.preventDefault()
+
+        const tbody = document.querySelector("#summaryTable tbody");
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        console.log("rows = ", rows[0].cells[1])
+        rows.sort((a, b) => {
+            const nameA = a.cells[2].textContent;
+            const nameB = b.cells[2].textContent;
+            return nameA.localeCompare(nameB);
+        });
+
+        if (!isNameSortedAsc) {
+            rows.reverse();
+            isNameSortedAsc = true;
+        } else {
+            isNameSortedAsc = false;
+        }
+
+        rows.forEach((row) => {
+            tbody.appendChild(row);
+        });
+
+    
+    })
 
 
-    renderPage()
+    renderPage('init')
 </script>
