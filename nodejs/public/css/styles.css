@@ -1,9 +1,23 @@
-.dn {
-    display: none;
-  }
 
+div {
+  opacity: 1;
+  max-height: 1000px;
+  transition: max-height 0.3s, opacity 0.3s;
+  pointer-events: auto;
+}
+
+.dn {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  pointer-events: none;
+  }
 .txtLeft {
     text-align: left
+}
+.title{
+    font-weight: bold;
 }
 
 .marginTB40 {
@@ -32,3 +46,51 @@
   h1 {
     color: brown
   }
+
+  /* Collapse Icon */
+  .title-section {
+    display: flex;
+    background-color: #f0f0f0;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .title-section:focus {
+    outline: none;
+  }
+  
+  .title {
+    font-weight: bold;
+  }
+  
+  .expand-icon,
+  .collapse-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .expand-icon::before {
+    content: "🔼";
+    
+  }
+  
+  .collapse-icon::before {
+    content: "🔽";
+   
+  }
+  
+  .expanded .expand-icon {
+    transform: rotate(45deg);
+  }
+  
+  .collapsed .collapse-icon {
+    transform: rotate(-45deg);
+  }
+  
+
+  
+  
+  
