@@ -228,6 +228,9 @@ for(let element of elements){
   </body>
 
   <script>
+
+
+
     const checkBox = document.getElementById("multiselect");
     const descriptions = document.querySelectorAll(".description");
 
@@ -272,6 +275,17 @@ for(let element of elements){
             )
     });
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+     // Expand the first item by default
+     console.log("came here")
+  const accordions = document.getElementsByClassName("accordion");
+  if (accordions.length > 0) {
+    const accordion = accordions[0]
+    const description = accordion.querySelector(".description");
+    description.classList.remove("dn")
+  }
+   })
   </script>
 
   <!-- HMR and test infrastructure - DO NOT EDIT -->

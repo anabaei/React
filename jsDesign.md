@@ -25,6 +25,8 @@ const printCalc = (cb) =>{
 
 printCalc(calc)
 ```
+### Creational Pattern
+
 * class/prototype pattern: provide blueprint for a type of object and we use it by creating new obj from that class. A class used to be prototype because of ES6 
 ```javascript
 class Car {
@@ -160,6 +162,7 @@ const autoManufacturer = (type, model) =>{
 
 const cx5 =  autoManufacturer('suv', 'cx5')
 ```
+### Structural pattern
 
 * Module pattern: Encapsulate your code into pure function. import and export are key word which added codes when we need 
 
@@ -184,6 +187,60 @@ let carMixin = {
         console.log(`the ${this.engine}`)
     }
 }
-
+// car.prototype means car class 
 Object.assign(Car.prototype, carMixin)
+cx5.revEngine()
 ```
+* Facede pattern: is a way to hide complexity of the code by creating components and usign them into another file. In react this pattern is used. When we have `<NewSingle />` this is facede pattern which a whole code is imported from another file.
+* Flyweight pattern: when we create component, the brower stack them into memory to not save them twice into memory. This is looks like below
+```javascript
+let instance = null;
+class Car {
+    constructor(doors, engine, color){
+        if(!instance){
+            this.doors = doors;
+            this.engine = engine;
+            this.color = color
+            instance = this;
+        }else{
+            return instance
+        }
+    }
+}
+
+```
+* Decorator pattern: is looks like mixins just use `@` to add new object to the class
+```javascript
+
+class C{
+    @my_func1()
+    @my_func2()
+    function hello(){
+        console.log("aaa")
+    }
+}
+
+```
+* `MVC`: Model: data resign define schemas, View: visuals UI, and conctroller: logic of applications. View access to model directly 
+
+* `MVP`: Model, view, presenter pattern. View doesn't have access to the model(unlike MVC) and it has to get it from presenter. presenter servce as logic. `Android`
+
+* `MVVM` or `MVVC`: React patterns, Model view view controller (MVVC)
+    * First view has no logic (stateless visuals)
+    * Second view model: holds logic and state of data which connects to model (statefull visual)
+    * Model: data
+
+* `Memento` pattern: Serialize JS object into json for streaming into HTTP protocol. When receive response from backend as JSON, we need to deserialize it into JavaScript object for consumption into application
+
+### Behavioral Pattern
+
+* Command pattern: redux
+    * actions: we call actions from an event
+    * reducer execute actions
+    * containers: figure out which case is the action, then run the function from reducer
+    * reducer change state and return state with new change
+
+
+
+# Redux
+* 

@@ -279,6 +279,7 @@ setAnyState(newvar) // works
 Display a list of books that match the query, showing the title, author, and cover image. You may use a static array of book objects for this purpose.
 Implement a basic pagination system, allowing users to navigate between different pages of search results (assume 5 books per page)
 
+
 ### Only JS
 
 * two3pointer

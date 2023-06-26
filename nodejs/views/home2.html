@@ -17,6 +17,13 @@
     </form>
 
     <button type="submit" id="reset"> reset </button>
+
+    <form class="marginT40" id="searchForm">
+        <label for="search">Search contact by Mobile No:</label>
+        <input type="text" id="search" value=""/>
+        <input type="submit" class="btn" id="searchMonile" value="Search"/>
+    </form>
+
     <div id="contactSummary" class="contactSummary">
         <table aria-labelledby="contactsSummary" id="summaryTable">
           <thead>
@@ -67,17 +74,42 @@
             </tr>`;
     }
 
+    function validateInput(value, type){
+        switch(type) {
+            case 'name':
+                return (/^[a-zA-Z\s]{1,8}$/).test(value)
+                break;
+            case 'email':
+                // + after regulare expression means one or more
+                // $ means the end of expression
+                return (/^[\w.-]+@[a-z]+\.[a-z]{2,}$/).test(value)
+                break;
+            case 'mobile':
+                return (/^[0-9]{6,12}$/).test(value)
+                break;
+            default:
+                break;
+        }
+    }
+
     function showError(messages) {
        document.getElementById('error').classList.remove('dn');
        const errorCell =  document.getElementById('error')
        errorCell.textContent  = messages.join(' ')
     }
     
-    function renderPage(param= 'render') {
-     
+    function renderPage(contactsList = window.contactList) {
+        
+        
         let summaryTable = document.getElementById('summaryTable')
         const tbody = summaryTable.getElementsByTagName('tbody')[0]
-    window.contactList.forEach(item => {
+        //let temp = [...window.contactList]
+                 
+        //console.log('temp 1',temp)
+       
+        tbody.innerHTML = '';
+
+        contactsList.forEach(item => {
         // if(item.name !== 'one name' || param === 'init'){
         const row  = document.createElement('tr')
         const nameCell  = document.createElement('td')
@@ -91,9 +123,12 @@
         row.appendChild(emailCell)
         row.appendChild(phoneCell)
         row.appendChild(nameCell)
+      
         tbody.appendChild(row)
         // }
     });
+   // window.contactList = temp
+    //console.log("window.contactList", window.contactList)
    
 
        
@@ -101,35 +136,52 @@
    
    document.getElementById('phonebook').addEventListener('submit', (e)=>{
     e.preventDefault()
+    // resetForm()
+
     const {value: name} = e.target.name 
     const {value: mobile} = e.target.mobile 
     const {value: email} = e.target.email
     const input = {name, email, mobile}
-    console.log("input= ", input)
-    resetForm()
-    if (name && mobile && email) {
+    
+
+    const errors = []
+    if(!validateInput(name, 'name')){
+        errors.push("not valid name")
+    }
+    if(!validateInput(email, 'email')){
+        errors.push("not valid email")
+    }
+    if(!validateInput(mobile, 'mobile')){
+        errors.push("not valid mobile")
+    }
+
+    if(errors.length > 0){
+            console.log(errors)
+            showError(errors)
+    }
+
+    
+    else {
         const newContact = {name, email, mobile}
         window.contactList.push(newContact)
+        console.log("window.contactLis =", window.contactList)
         renderPage()
         
     }
-    else{
-        const errors = []
-        switch (true) {
-            case !input.name:
-                errors.push("no name")
-            case !input.email:
-                errors.push("no email")
-            case !input.mobile:
-                errors.push("no mobile")
-            default:
-                break;
-        }
-        if(errors.length > 0){
-            console.log(errors)
-            showError(errors)
-        }
-    }
+    // else{
+    //     const errors = []
+    //     switch (true) {
+    //         case !input.name:
+    //             errors.push("no name")
+    //         case !input.email:
+    //             errors.push("no email")
+    //         case !input.mobile:
+    //             errors.push("no mobile")
+    //         default:
+    //             break;
+    //     }
+     
+    // }
    })
 
 //    document.getElementById('mobile').addEventListener('keydown', (e)=>{
@@ -180,7 +232,23 @@
 
     
     })
+                                          
+    document.querySelector("#searchForm").addEventListener('submit',(e)=>{
+        e.preventDefault()                      
+        const search = e.target.search.value.toLowerCase()
+        console.log(search)
+        
+        const searchResults = window.contactList.filter((contact)=>{
+            const {name} = contact
+            return(
+                name.toLowerCase().includes(search)
+            )
+        })
+        
+        console.log(searchResults)
+        renderPage(searchResults)
+    })
 
 
-    renderPage('init')
+    renderPage()
 </script>
