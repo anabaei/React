@@ -3,12 +3,22 @@
 
 # Challenges
 
+```javascript
+npm create-react-app toDo
+npm install react-bootstrap bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
+yarn add react-router-dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+```
 
 #### APIs
 https://api.publicapis.org/
+https://rapidapi.com/weatherapi/api/weatherapi-com/
 
 
-### Todo
+### 1- Todo
 
 - Need two satates, input and todo lists.
 - `<input />` with handleon change to set input
@@ -18,6 +28,15 @@ https://api.publicapis.org/
 const handleAddTodo = () => {
   setTodo([...todo, { text: input, completed: false }]);
 };
+
+ const handleCheck = (index) => {
+    console.log(index);
+    const newTodo = [...todo];
+    newTodo[index].isCompleted = !newTodo[index].isCompleted;
+    setTodo(newTodo);
+  };
+
+ style={{textDecoration: element.isCompleted ? "line-through" : ""}}
 ```
 
 - `return ()` includes an array read through
@@ -43,8 +62,9 @@ todo.map((item, index)=>{ return ( )})
 
 - add delete button to handle as `newTodo.splice(index, 1)`
 
-### Weather
+### 2 - Weather
 
+- Show the weather, set interval to hit endpoint
 - UseEffect to fetch data, response includes data, status in json // no need to parse.json(response)
 - setWeather useState to manage response
 - return is conditional
@@ -70,7 +90,7 @@ return (
 await axios.get(apiUrl);
 await axios.post(apiUrl, payload, { header });
 ```
-##### Drag and Drop
+### 3 - Drag and Drop
 
 * first add `onDragOver` on items and the zone you want to drop to call anonymouse function prevent event default 
 *  `dragable` built in tag to identify which object is dragable
@@ -330,3 +350,38 @@ const listItems = document.querySelectorAll('ul li');
       });
 ```
 * In React the job of `Babel` is translate JSX to JS which is javascript format. 
+
+
+### Authentications
+
+###### JWT
+* `JWT` is unique string that we give to users when they login, they use this token to verify their authenticity, it is encoded based on 64
+* JWT has 3 parts, it is based on 
+  * header: tells type and sign in algos 
+  * payload: Includes basic informaiton like email, name, profile infos
+  * signiture: To prove the authenticity of the data, it is created by header and payload using secret key. 
+* Anyone can see data but can't change the JWT unless they have secret keys
+* JWTs are stateless, it means whatever they need are inside tokens
+* There is no regenerate token so if it is expire user needs to create new ones
+*  
+
+#### User Cycle using token
+* User login in successfully
+* Service use secret key to generate token
+* Server send token to the user
+* FE store token in cookies, sessions,local storage
+  * each one has its own pros and cons
+* Whenever user wants to send any other request, they send JWT along with request
+```javascript
+//header 
+Authorization: 'bearer 9843hfoihfoahyfehfoehoewhohefo'
+```
+* Server verify the token
+
+#### Signing vs Encrypting
+* Siging make sure the data is not tamper
+* Encrypting can even hide the actual data of payload from being seen
+
+
+
+
