@@ -18,7 +18,9 @@ https://api.publicapis.org/
 https://rapidapi.com/weatherapi/api/weatherapi-com/
 
 
-### 1- Todo
+### 1 
+<details>
+  <summary>  Todo  </summary> 
 
 - Need two satates, input and todo lists.
 - `<input />` with handleon change to set input
@@ -61,9 +63,11 @@ todo.map((item, index)=>{ return ( )})
   `newTodo[index].completed = !newTodo[index].completed;`
 
 - add delete button to handle as `newTodo.splice(index, 1)`
+</details>
 
-### 2 - Weather
-
+### 2 
+<details>
+  <summary>  Weather  </summary> 
 - Show the weather, set interval to hit endpoint
 - UseEffect to fetch data, response includes data, status in json // no need to parse.json(response)
 - setWeather useState to manage response
@@ -90,8 +94,11 @@ return (
 await axios.get(apiUrl);
 await axios.post(apiUrl, payload, { header });
 ```
-### 3 - Drag and Drop
+</details>
 
+### 3 
+<details>
+  <summary>  Drag and Drop  </summary> 
 * first add `onDragOver` on items and the zone you want to drop to call anonymouse function prevent event default 
 *  `dragable` built in tag to identify which object is dragable
 *  `onDragStart` built in function to trigger a function using anonymouse function 
@@ -102,10 +109,11 @@ await axios.post(apiUrl, payload, { header });
  event.dataTransfer.setData('text/plain', index);
 index = event.dataTransfer.getData('text/plain');
 ```
-
+</details>
 
 ### Tips
-
+<details>
+  <summary> variables  </summary> 
 
 #### Variables
 
@@ -127,6 +135,8 @@ index = event.dataTransfer.getData('text/plain');
 ##### Spread Operator
 
 - The spread operator is a powerful feature in JavaScript that simplifies working with arrays, objects, and function arguments by providing a concise and flexible syntax for expanding iterable values into individual elements.
+
+* Flatten nested Javascript Array without using Array.prototype.flat()
 
 ##### Shallow vs deep Copy
 
@@ -172,7 +182,10 @@ setDropZoneItems((prevItems) => [...prevItems, draggedItem]);
             
         )}
 ```
-##### Cleanup functions
+
+### Clean up function
+
+
 * It performs when the component unmounts or when the dependencies changed
 * It is useful for canceling subscriptions, clearing timers, or releasing any resources.
 * return a function inside useEffect is cleanup function. One common clean up is return cancel axios to cancel request
@@ -189,6 +202,7 @@ setDropZoneItems((prevItems) => [...prevItems, draggedItem]);
     };
 ```
 
+
 #### State Value
 * If you update the state value directly and try to use setState with that not working! React can't recognize any change on object since it checks shallow copy. So to solve it you always need to make a copy shallow of the state, update it and then use it to set 
 ```javascript
@@ -202,103 +216,171 @@ newwar.push(1)
 setAnyState(newvar) // works
 ```
 
+### Test Async/Await
 
+* `async` words just tell compiler that this function return a promise, so it wrapped it with a resolved promise
+* Function body executes synchronously until it sees `await`. So it waits until the promise is resolved and controlled back to the place when `async` function was called and continue to execute the rest of codes
+* When reached to the end of function, caller back to resolve the promise.
+```javascript
+ (async function(){
+            console.log("before")
+            const result = await axios.request(options)
+            console.log("after")
+            console.log(result)
+        })();
+  console.log("continue to the end of code")
+// result
+before
+continue to the end of code
+after 
+result
+```
+* Remove await, which allows to go over next line without doing execution as async
 
-1- Todo App: Implement a simple todo application where users can add, delete, and mark items as complete. This exercise tests your understanding of React component structure, state management, and event handling.
+```javascript
+ (async function(){
+            console.log("before")
+            const result = axios.request(options)
+            console.log("after")
+            console.log(result)
+        })();
+  console.log("ss")
+// result
+before
+after 
+result(a promise)
+ss
+```
+* Race between promise and I/o. To test that I added one setTimeout, as you see the result saying I/O is always on priority compare to promise queues. 
 
-2- Weather App: Build a weather application that fetches data from a weather API and displays the current weather conditions. This exercise assesses your ability to work with APIs, handle asynchronous data fetching, and update the UI accordingly.
+```javascript
+    (async function(){
+            console.log("before")
+            const result = await axios.request(options)
+            console.log("after")
+            console.log(result)
+        })();
+        setTimeout(() => {
+            console.log("from time out") 
+        }, 0);
+        console.log("continue to the end of code")
+   
+    })
+// result
+before
+continue to the end of code
+from time out
+after 
+result
 
-3- GitHub User Search: Develop a user search feature that fetches GitHub user data based on a search query and displays the results. This exercise evaluates your understanding of React's controlled components, API integration, and rendering lists of data.
+```
 
-4- Carousel: Create a carousel component that displays a set of images or content and allows users to navigate between them using buttons or swipe gestures. This exercise tests your knowledge of React component lifecycle methods, event handling, and handling state transitions.
+</details>
 
-5 - write an unlimited scroll 
+### 4
+<details>
+  <summary> Search  </summary> 
 
+* connect to github and search users
+```javascript
+// a good example of fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.example.com/data');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-6- Pagination: Implement a pagination component that fetches data from an API and displays it in paginated form, allowing users to navigate through the pages. This exercise examines your ability to manage state, handle API pagination, and render data dynamically.
+    fetchData();
+  }, []);
+```
+* To handle search
+```javascript
+ const handleKeyDown = (e) => {
+    e.preventDefault();
+    const input = e.target.value;
+    let selectedUsers = [];
+    users.forEach((user) => {
+      if (user.toLowerCase().includes(input)) {
+        selectedUsers.push(user);
+      }
+    });
+    setSearch(selectedUsers);
+  };
 
-7- Drag and Drop: Build a drag-and-drop interface where users can drag elements from one container and drop them into another. This exercise assesses your understanding of React's event system, handling drag events, and manipulating the DOM.
+```
+</details>
+
+### 5
+<details>
+  <summary> Carousel </summary> 
+Carousel: Create a carousel component that displays a set of images or content and allows users to navigate between them using buttons or swipe gestures. This exercise tests your knowledge of React component lifecycle methods, event handling, and handling state transitions.
+</details>
+
+### 6 
+<details>
+  <summary> Form Validation </summary> 
 
 * Form Validation: Create a form with various input fields and implement validation logic to ensure that the data entered by the user meets certain criteria. This exercise evaluates your ability to manage form state, handle user input, and display validation errors.
+</details>
 
-* Movie/Book Search: Develop a search feature that allows users to search for movies or books by title, fetches the data from an API, and displays the results. This exercise tests your skills in working with external APIs, handling user input, and rendering search results.
+### 7
+<details>
+  <summary> write an unlimited scroll, pagination </summary> 
 
-* User Authentication: Build a user authentication system with registration, login, and logout functionality. This exercise tests your understanding of authentication flows, managing user sessions, and handling protected routes.
+Pagination: Implement a pagination component that fetches data from an API and displays it in paginated form, allowing users to navigate through the pages. This exercise examines your ability to manage state, handle API pagination, and render data dynamically.
 
-* E-commerce Product Listing: Create a product listing page for an e-commerce website that fetches product data from an API and displays it in a visually appealing and user-friendly manner. This exercise evaluates your ability to work with complex data structures, handle API integration, and implement filtering or sorting functionalities based on name, date, type and country. 
+</details>
+
+### 8
+<details>
+  <summary> Chat application, Pop Over </summary>
 
 * Chat Application: Develop a real-time chat application where users can join chat rooms, send messages, and view the messages in real-time. This exercise examines your knowledge of React's lifecycle methods, working with websockets or real-time communication libraries, and managing state updates across multiple users.
+</details>
 
-* Drag and Drop Kanban Board: Build a Kanban board interface where users can create columns, add tasks, and drag tasks between columns. This exercise tests your understanding of React's drag-and-drop libraries, state management, and updating data structures based on user interactions.
-
-* Image Gallery: Implement an image gallery component that displays a grid of images and allows users to filter or search for specific images. This exercise assesses your skills in handling image loading, optimizing rendering performance, and implementing interactive features.
+### 8.5
+<details>
+  <summary> Quiz app </summary>
 
 * Quiz Application: Create a quiz application that presents a set of questions, tracks user answers, and provides feedback on the results. This exercise evaluates your ability to manage application state, handle user interactions, and dynamically render content based on data.
+</details>
 
-* Social Media Feed: Build a social media feed component that fetches posts from an API and displays them in a chronological order. This exercise examines your understanding of React's lifecycle methods, handling asynchronous data fetching, and rendering dynamic content.
+### 9
+<details>
+  <summary> Star Rating, Design Accordion,  Debounce function  </summary>
 
-* Star Rating
 
-* Design Pop Over
+</details>
 
-* Design Accordion (Amazon onsite)
+### 10
+<details>
+  <summary> tic tac toe, snake ladder board, Calender, throttle function   </summary>
 
-* Design Carousel
 
-* Design grid using HTML/CSS and Javascript with search and sort, event bubbling (Amazon onsite)
+</details>
 
-* Design NavBar
+### 11
+<details>
+  <summary> Translation  </summary>
 
-* Infinite Scroll
+* 
+</details>
 
-* Typeahead / autocomplete using trie
+### 12
+<details>
+  <summary> HTML, JavaScript  </summary>
 
-* Implement Debounce function
-
-* Implement tic tac toe
-
-* Make snake ladder board
-
-* Make calendar of any Month like Date Picker
-
-* Implement throttle function
-
-* Implement custom Higher Order Functions like Map, Reduce, Filter, Sort (Amazon Phone Interview)
-
-* Create an analog clock
-
-* Make a todo list
-
-* Create functionality to change all text on page to different translations
-
-* Build a calculator (add/subtract... then multiply/divide... then log/pow... etc)
-
-* Search and display Giphy images (through Giphy api) in responsive format
-
-* Build Connect Four
-
-* Implement Nested Checkboxes (parent is checked, children are checked and vice versa. Must use actual checkbox input)
-
-* Implement a poll widget
-
-* Implement Event Emitter
-
-* Implement promise.all function
-
-* Flatten nested Javascript Array without using Array.prototype.flat()
-
-* Implement Sort() function
-* Create an analog clock
-* Make a todo list
-* Create functionality to change all text on page to different translations
-* Build a calculator (add/subtract... then multiply/divide... then log/pow... etc)
-* Search and display Giphy images (through Giphy api) in responsive format
-* Build Connect Four
-* Implement Nested Checkboxes (parent is checked, children are checked and vice versa. Must use actual checkbox input)
-* A search bar where users can enter a search query.
-Display a list of books that match the query, showing the title, author, and cover image. You may use a static array of book objects for this purpose.
-Implement a basic pagination system, allowing users to navigate between different pages of search results (assume 5 books per page)
-
+* Implement accordion, form sort, validation based using javascript html 
 
 ### Only JS
 
@@ -351,8 +433,10 @@ const listItems = document.querySelectorAll('ul li');
 ```
 * In React the job of `Babel` is translate JSX to JS which is javascript format. 
 
+</details>
 
-### Authentications
+<details>
+  <summary> Authentications  </summary> 
 
 ###### JWT
 * `JWT` is unique string that we give to users when they login, they use this token to verify their authenticity, it is encoded based on 64
@@ -363,7 +447,28 @@ const listItems = document.querySelectorAll('ul li');
 * Anyone can see data but can't change the JWT unless they have secret keys
 * JWTs are stateless, it means whatever they need are inside tokens
 * There is no regenerate token so if it is expire user needs to create new ones
-*  
+
+* `localstorage`  
+  * after close browser data is still there
+  * 5-10 MB
+  * Isolate to a domain -> security risk
+  * Not cleared automatically and not send to server on each request automatically
+
+* `cookies`
+  * 4kb
+  * send to server on each request automatically -> security risk
+  * can set expiration data
+  * access among different browsing devices
+  * Dont save sensitive info in it
+  * has limited of 20-25 
+
+* `sessionStorage`
+  * data is available only on one tab and not share with other tabs/windows
+  * 5-10MB
+  * Not sent on each HTTP request to server
+  * When tab close it is gone
+  * Not good for long term data
+  
 
 #### User Cycle using token
 * User login in successfully
@@ -382,6 +487,6 @@ Authorization: 'bearer 9843hfoihfoahyfehfoehoewhohefo'
 * Siging make sure the data is not tamper
 * Encrypting can even hide the actual data of payload from being seen
 
-
+</details>
 
 
