@@ -449,10 +449,14 @@ const listItems = document.querySelectorAll('ul li');
 * There is no regenerate token so if it is expire user needs to create new ones
 
 * `localstorage`  
+  * is persistent and can be accessed across different tabs and windows, so be cautious about the type and amount of data you store to prevent data leakage or potential security risks
   * after close browser data is still there
   * 5-10 MB
   * Isolate to a domain -> security risk
   * Not cleared automatically and not send to server on each request automatically
+  * Cached or offline data to improve application performance
+  * User-generated content or drafts
+  * Large datasets or resources that can be loaded locally to reduce server requests.
 
 * `cookies`
   * 4kb
@@ -461,13 +465,20 @@ const listItems = document.querySelectorAll('ul li');
   * access among different browsing devices
   * Dont save sensitive info in it
   * has limited of 20-25 
+  * User session tokens, authentication-related, language preference, themes 
+  * User preferences or settings that need to persist across sessions.
 
 * `sessionStorage`
+  *  is scoped to the current tab or window and is cleared when the tab or window is closed.
   * data is available only on one tab and not share with other tabs/windows
   * 5-10MB
   * Not sent on each HTTP request to server
   * When tab close it is gone
   * Not good for long term data
+  * Shopping cart or form data during
+  
+
+* No sensitive data at sessionStorage, or localStorage.
   
 
 #### User Cycle using token

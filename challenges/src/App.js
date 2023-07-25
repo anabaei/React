@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ThrottledButton from './Assessments/throtle';
 import {useState} from 'react'
-
+import {Fetchs} from './Assessments/fetch'
 
 function App() {
   
@@ -23,7 +23,7 @@ function App() {
           }
         />
         <Route path="/" element={<ThrottledButton />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<Fetchs />} />
       </Routes>
     </Router>  
   );
