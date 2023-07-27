@@ -500,4 +500,16 @@ Authorization: 'bearer 9843hfoihfoahyfehfoehoewhohefo'
 
 </details>
 
+* parantezis vs curely braces 
+```javascript
+// it returns what we expect
+{items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+// here it returns nothing unless add return command
+{items.map((item, index) => {
+      // return
+      <li key={index}>{item}</li>
+ })}
+```
 

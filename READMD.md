@@ -1955,3 +1955,12 @@ class QuestionsShowScreen extends Component {
 export default QuestionsShowScreen;
 ```
 
+* Loop Through Array Sequentially
+```javascript
+// Loop through the array sequentially
+const runSequentially = async () => {
+  for (const asyncFunc of asyncFunctions) {
+    await asyncFunc();
+  }
+};
+```
