@@ -1,6 +1,7 @@
 
 
 import Search from './Assessments/search'
+import CssBox from './Assessments/cssBox'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ThrottledButton from './Assessments/throtle';
@@ -23,7 +24,7 @@ function App() {
           }
         />
         <Route path="/" element={<ThrottledButton />} />
-        <Route path="/search" element={<Fetchs />} />
+        <Route path="/CssBox" element={<CssBox />} />
       </Routes>
     </Router>  
   );
