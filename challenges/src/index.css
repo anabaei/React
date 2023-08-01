@@ -22,19 +22,15 @@ code {
   flex-direction: column;
 }
 .main{
-
   display: grid;
   grid-template-columns: 1fr 6fr;
   min-height: 700px;
-  border: 3px solid brown
 }
 .feed{
-  border: 1px solid red;
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 .sidebar{
- 
   padding: 5%;
   justify-content: center; 
   display: grid;
@@ -46,7 +42,6 @@ code {
   background-color: rgb(0, 255, 38);
 }
 .feed{
-
   background-color: blue;
 }
 .button{
