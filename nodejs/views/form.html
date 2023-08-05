@@ -1,0 +1,92 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Phone Directory</title>
+</head>
+<body>
+  <main>
+    <h1 class="margin20 textCenter fs20">Phone Directory</h1>
+    <div class="textCenter">
+      <div class="textCenter inputContent">
+        <div class="txtLeft marginTB40 fb">
+          <form class="txtLeft" id="addContactForm">
+            <input type="text" id="name" value="" aria-label="Contact Name" placeholder="Contact Name"/>
+            <input type="number" maxlength="10" id="mobile" value="" aria-label="Mobile Number" placeholder="Mobile Number"/>
+            <input type="email" id="email" value="" aria-label="Email" placeholder="Email"/>
+            <input type="submit" class="btn" id="submit" value="Add Vendor"/>
+            <div id="error" class="dn error padT10 textCenter">Invalid Input!</div>
+          </form>
+        </div>
+      </div>
+      <form class="marginT40" id="searchForm">
+        <label for="search">Search contact by Mobile No:</label>
+        <input type="text" id="search" value=""/>
+        <input type="submit" class="btn" id="" value="Search"/>
+      </form>
+      <div class="marginT40 padL10 tab cursorPtr" id="contactsSummary">Contacts Summary</div>
+      <div id="contactSummary" class="contactSummary">
+        <table aria-labelledby="contactsSummary" id="summaryTable">
+          <thead>
+            <tr>
+              <th><button id="nameColumn">Name</button></th>
+              <th>Mobile</th> 
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Admin</td>
+              <td>9999999999</td> 
+              <td>admin@xyzcompany.com</td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="noResult" class="noResult dn">No Results Found</div>
+      </div>
+    </div>
+  </main>
+  <script>
+    window.contactsList = [{
+      name: 'Admin',
+      mobile: '9999999999',
+      email: 'admin@xyzcompany.com'
+    }];
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("")
+    });
+
+    const submit = document.querySelector('#searchForm');
+    submit.addEventListener('click', function(e){
+        e.preventDefault();
+         console.log("ss")
+        const name = document.querySelector('#name').value;
+        console.log(name)
+        const newContact = {name};
+        window.contactsList.push(newContact);
+        //renderForm()
+    });
+
+
+   const searchMonileButton =  document.querySelector('#searchForm .btn');
+   searchMonileButton.addEventListener('click', (e)=>{
+    const searchValue = document.querySelector('#searchForm  #search').value;
+ 
+    window.contactsList.filter(function(contact) {
+        console.log(searchValue, window.contactsList) 
+        const result = contact.name.includes(searchValue);
+        console.log("windowt= ", result)
+        return(result) 
+   })})
+
+    </script>
+</body>
+</html>
+
+
+ezafeh kon
+document.addEventListener('DOMContentLoaded', function() {
+
+
