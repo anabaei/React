@@ -2005,4 +2005,6 @@ const myStyle = { color: white, fontSize: '16px', backgroundColor: 'blue'}
 ```
 
 ##### Add
-* git 
+* You can define const inside nested block again, then it is fine
+* If you have the same const in parent block, you can use it but if you define it again then you have new const 
+* You always can deifne nested var, let const with the same name in child block, but if you do in const and let you get error saying you can not use it before initialize it
