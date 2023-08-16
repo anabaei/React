@@ -1964,3 +1964,45 @@ const runSequentially = async () => {
   }
 };
 ```
+
+### Style inside React Return
+* In return react everything is jsx(html) you can use javascript to address styles as
+```javascript
+return <div>
+  <div className="accordion-header" onClick={toggleAccordion}>
+          <h3>{title}</h3>
+          <span className={`icon ${isOpen ? 'open' : ''}`}>&#9660;</span>
+  </div>
+</div>
+```
+* Case 2 using javascript 
+```javascript
+    <span
+              style={{
+                textDecoration: item.completed ? "line-through" : "underline",
+              }}
+              onClick={(_) => handleCompleteTodo(index)}
+            >
+              <li key={index}>
+                {item.text}
+                {item.completed}
+              </li>
+  </span>
+```
+* Remember `textDecoration` is javascript which transfer it to css as below `text-decoration: line-through;`
+
+* Inline style, define a const and assign it, Remember need css camel case. 
+```javascript
+const myStyle = { color: white, fontSize: '16px', backgroundColor: 'blue'}
+
+  return (
+    <div style={myStyle}>
+      This is a component with inline styles.
+    </div>
+  );
+// in css seperate file css is cabab case not camel case
+// background-color: blue;
+```
+
+##### Add
+* git 
