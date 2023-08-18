@@ -87,6 +87,15 @@ function Hello (props) {
   );
 }
 ```
+#### TIPS
+
+* in map when you open `=>{}` it won't return anything in react, unless you use `return` or not using `{}` below map return nothing
+```javascript
+{todo.map((item)=>{ // remove this last { 
+  <div> {item} </item>
+})}
+``` 
+
 #### Bootstrap 
 * Check React bootstrap components to have them easily in your code 
 https://react-bootstrap.github.io/components.html

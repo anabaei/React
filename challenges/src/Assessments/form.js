@@ -1,6 +1,7 @@
 // login, signup page,
 // validate form
 // check if it is loged in or not
+// write a form to have all in one form
 
 import {useState } from "react";
 import { Input, Box, Grid, Button, ThemeProvider } from "theme-ui";
