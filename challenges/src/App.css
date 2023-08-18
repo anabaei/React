@@ -63,3 +63,7 @@ input {
   z-index: 9999;
 }
 
+.dn {
+  display:none;
+}
+
