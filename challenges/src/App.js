@@ -7,6 +7,7 @@ import './App.css';
 import ThrottledButton from './Assessments/throtle';
 import {useState} from 'react'
 import {Fetchs} from './Assessments/fetch'
+import Todo2 from './Assessments/todo2'
 
 function App() {
   
@@ -23,7 +24,7 @@ function App() {
             loggedIn ? <div>Logged In</div> : <div>It is logged out, need to sign in</div>
           }
         />
-        <Route path="/" element={<ThrottledButton />} />
+        <Route path="/" element={<Todo2 />} />
         <Route path="/CssBox" element={<CssBox />} />
       </Routes>
     </Router>  
