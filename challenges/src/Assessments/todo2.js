@@ -94,22 +94,25 @@ export const Accor = () => {
 
     
       const toggleAccor = (index) =>{
-        const activecp = {...active}
-        activecp[index] = !activecp[index]
+       const aactive = {
+        ...active,
+        [index]: !active[index]
+       }
+       setActive(aactive)
+       console.log(active)
+      
 
-        const aa = 1
-       if(index in active){
-           const aa= 2 
-           console.log(aa)
-        const activecp = {...active}
-        delete activecp[index]
-        setActive(activecp)
-       }
-       else {
-        const activep = {...active}
-        activep[index] = true
-        setActive(activep)
-       }
+    // second solution 
+    //    if(index in active){
+    //     const activecp = {...active}
+    //     delete activecp[index]
+    //     setActive(activecp)
+    //    }
+    //    else {
+    //     const activep = {...active}
+    //     activep[index] = true
+    //     setActive(activep)
+    //    }
     
       }
 
@@ -119,7 +122,7 @@ export const Accor = () => {
         <span key={`${index}-span`}>
             .
             <div key={`${index}-title`} onClick={()=>toggleAccor(index)}> {item.title} </div>
-            <div key={index} className={`${index in active ? `dn`: ''}`} style={{backgroundColor: `red`}}> {item.text} </div>
+            <div key={index} className={`${active[index] ? `dn`: ''}`} style={{backgroundColor: `red`}}> {item.text} </div>
         </span>
      
       )
