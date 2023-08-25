@@ -8,9 +8,8 @@ import ThrottledButton from './Assessments/throtle';
 import {useState} from 'react'
 
 import {Fetchs} from './Assessments/fetch'
-import Todo2 from './Assessments/todo2'
+import {Myapp} from './Assessments/globalstate'
 
-import {Accor} from './Assessments/todo2'
 
 
 function App() {
@@ -29,7 +28,7 @@ function App() {
           }
         />
 
-        <Route path="/" element={<Todo2 />} />
+        <Route path="/" element={<Myapp />} />
 
 
         <Route path="/CssBox" element={<CssBox />} />
